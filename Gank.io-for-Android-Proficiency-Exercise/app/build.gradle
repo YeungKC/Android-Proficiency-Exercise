@@ -68,6 +68,9 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
     dataBinding.enabled = true
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
