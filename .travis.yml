@@ -15,7 +15,8 @@ before_install:
 jdk:
 - oraclejdk8
 script:
-- Gank.io-for-Android-Proficiency-Exercise/./gradlew build
+- cd Gank.io-for-Android-Proficiency-Exercise
+- ./gradlew build
 deploy:
   provider: releases
   api_key:
