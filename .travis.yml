@@ -8,19 +8,19 @@ android:
   - extra-android-support
 before_install:
 - openssl aes-256-cbc -K $encrypted_95efea2de83a_key -iv $encrypted_95efea2de83a_iv
-  -in YeungKc.jks.enc -out YeungKc.jks -d
+  -in Gank.io-for-Android-Proficiency-Exercise/YeungKc.jks.enc -out Gank.io-for-Android-Proficiency-Exercise/YeungKc.jks -d
 
 - mkdir "$ANDROID_HOME/licenses" || true
 - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
 jdk:
 - oraclejdk8
 script:
-- ./gradlew build
+- Gank.io-for-Android-Proficiency-Exercise/./gradlew build
 deploy:
   provider: releases
   api_key:
     secure: KvNeixlcaTF0W4OcqtLpnv6vCE/2V4FRIHNS4dGHvx22jqOjY8qePaCHcVUxT3yBljlGNXGqkE4HzmctRQwncsdJ8b+cmbni250/gr+kR1Ow+iTAaBlPYeAWEYht8v/s+h4TcFHI60arIOTZOB1B49qGlgJyVPadmHoQVzdQEMEQXIt2EZJOLUSBhJUNQUJZvDp3fJoi7HhIg0sqwGSV7LCgcZwd2tnVUwP3XHohl/qLuqLTKBFmDb+5aFySFT9fdM61dpLi494y7Sj2NXB8iIBuG+Jz0Yp8BcyaYfMCTeAugbrFQyxYvdsQRoryW+BGdUqjtrQ1iWst+XshwEgFRRSaUZpmJxJ8TKvx04v5MUtXTAFp6b19qNQotsO5MweMIJd+ZXCbYuXLd5tLieZJ1NuRQlj+UORO2OdoVkEU+Z6xh0Wm9atYY3WPcd+9AMpaQCIgYwLV3Ni4NOT8HDot175E2gFisoETx205zOHupUeJYMhMuEicGOTlm14FbPGXMNXELVLMhLFNwbySxuPGaHfK1IuTwqwJjX9Yb3CmDpdiDbnZEcwSKsfUO4P5ZMuMhVqJeXml/2i92s3y+LB138IbfIcpqbMyJTDJhUaXuUxxYU9kvrhuvh5Mgg8OJ3Zu2NptdDbXIAd8O7vVLgkeGaKxp5lJra+g5T8BMEZShN0=
-  file: app/build/outputs/apk/app-release.apk
+  file: Gank.io-for-Android-Proficiency-Exercise/app/build/outputs/apk/app-release.apk
   on:
     tags: true
     repo: YeungKC/Android-Proficiency-Exercise
