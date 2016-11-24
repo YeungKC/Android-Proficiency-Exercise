@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+def gitVersionCode() {
+    def cmd = 'git rev-list HEAD --first-parent --count'
+    cmd.execute().text.trim().toInteger()
+}
+
+def gitVersionTag() {
+    def cmd = 'git describe --tags'
+    def version = cmd.execute().text.trim()
+
+    def pattern = "-(\\d+)-g"
+    def matcher = version =~ pattern
+
+    if (matcher) {
+        version = version.substring(0, matcher.start()) + "." + matcher[0][1]
+    } else {
+        version = version + ".0"
+    }
+
+    return version
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+    defaultConfig {
+        applicationId "yeungkc.com.gankio_for_android_proficiency_exercise"
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "API_BASE_URL", "\"${API_BASE_URL}\"")
+    }
+    signingConfigs {
+        releaseConfig {
+            Properties signingProperties = new Properties()
+            def file = rootProject.file("signing.properties")
+            if (file.exists()) {
+                signingProperties.load(file.newDataInputStream())
+            }
+            storeFile rootProject.file("YeungKc.jks")
+            storePassword signingProperties.get("STORE_PASSWORD") ?: System.getenv("STORE_PASSWORD") ?: System.console()
+            keyAlias signingProperties.get("KEY_ALIAS")?: System.getenv("KEY_ALIAS") ?: System.console()
+            keyPassword signingProperties.get("KEY_PASSWORD") ?: System.getenv("KEY_PASSWORD") ?: System.console()
+        }
+    }
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
+        }
+    }
+    applicationVariants.all { variant ->
+        if (variant.buildType.name.equals('release')) {
+            variant.mergedFlavor.versionCode = gitVersionCode()
+            variant.mergedFlavor.versionName = gitVersionTag()
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+    dataBinding.enabled = true
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:design:25.0.1'
+    testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    kapt "com.android.databinding:compiler:$android_plugin_version"
+}
+kapt {
+    generateStubs = true
+}
+repositories {
+    mavenCentral()
+}
