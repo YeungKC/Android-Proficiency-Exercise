@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="yeungkc.com.gankio_for_android_proficiency_exercise.MainActivity">
+	<item
+		android:id="@+id/action_settings"
+		android:orderInCategory="100"
+		android:title="@string/action_search"
+		android:icon="@drawable/ic_search"
+		app:showAsAction="always"/>
+</menu>
