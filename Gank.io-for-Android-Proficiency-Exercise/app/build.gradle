@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+//apply plugin: 'org.greenrobot.greendao'
 
 def gitVersionCode() {
     def cmd = 'git rev-list HEAD --first-parent --count'
@@ -71,6 +72,9 @@ android {
     lintOptions {
         abortOnError false
     }
+//    greendao {
+//        schemaVersion 1
+//    }
 }
 
 dependencies {
@@ -98,6 +102,8 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.12.0'
     compile 'com.facebook.fresco:animated-gif:0.12.0'
     compile "com.facebook.fresco:imagepipeline-okhttp3:0.12.0+"
+
+//    compile 'org.greenrobot:greendao:3.2.0'
 }
 kapt {
     generateStubs = true

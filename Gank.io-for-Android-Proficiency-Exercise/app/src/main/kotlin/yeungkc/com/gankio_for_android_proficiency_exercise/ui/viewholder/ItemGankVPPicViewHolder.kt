@@ -15,7 +15,8 @@ import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.GankResult
 import yeungkc.com.gankio_for_android_proficiency_exercise.ui.adapter.PicAdapter
 import java.util.concurrent.TimeUnit
 
-class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_gank_vp_pic, parent, false)) {
+class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.item_gank_vp_pic, parent, false)) {
     companion object {
         const val INITIAL_DELAY: Long = 3
         const val PERIOD: Long = 3
@@ -23,12 +24,22 @@ class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(LayoutInflater
 
     val bind: ItemGankVpPicBinding
     val picAdapter: PicAdapter
+    val runnable: Runnable
 
     var subscribe: Subscription? = null
 
     init {
         bind = ItemGankVpPicBinding.bind(itemView)
         picAdapter = PicAdapter()
+        runnable = object : Runnable {
+            override fun run() {
+                var currentItem = bind.viewPager.currentItem
+                currentItem++
+                bind.viewPager.currentItem =
+                        if (currentItem == bind.viewPager.adapter.count) 0 else currentItem
+                bind.viewPager.postDelayed(this,INITIAL_DELAY)
+            }
+        }
 
         bind.viewPager.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
@@ -59,7 +70,8 @@ class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(LayoutInflater
 
         bind.title = data.desc
         bind.who = data.who
-        bind.date = DataLayer.simpleDateFormat.format(data.publishedAt)
+        bind.date = data.publishedAt
+        bind.dateFormat= DataLayer.simpleDateFormat
 
         bind.executePendingBindings()
     }

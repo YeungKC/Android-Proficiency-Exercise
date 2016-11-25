@@ -17,8 +17,11 @@
 
 		<variable
 			name="date"
-			type="String"/>
+			type="java.util.Date"/>
 
+		<variable
+			name="dateFormat"
+			type="java.text.DateFormat"/>
 	</data>
 
 	<RelativeLayout
@@ -87,7 +90,8 @@
 				android:layout_weight="1"
 				android:maxLines="1"
 				android:textAlignment="textEnd"
-				android:text="@{date}"
+				app:date="@{date}"
+				app:dateFormat="@{dateFormat}"
 				android:textColor="?android:attr/textColorSecondaryInverse"
 				android:textSize="12sp"
 				tools:text="2016-11-23"/>

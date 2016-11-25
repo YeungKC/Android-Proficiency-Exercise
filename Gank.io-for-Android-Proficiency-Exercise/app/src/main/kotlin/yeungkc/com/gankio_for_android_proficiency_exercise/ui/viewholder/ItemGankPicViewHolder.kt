@@ -14,7 +14,8 @@ import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.GankResult
 
 
 
-class ItemGankPicViewHolder(parent: ViewGroup) : BaseViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_gank_pic, parent, false)) {
+class ItemGankPicViewHolder(parent: ViewGroup) : BaseViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.item_gank_pic, parent, false)) {
     val bind: ItemGankPicBinding
 
     init {
@@ -29,10 +30,12 @@ class ItemGankPicViewHolder(parent: ViewGroup) : BaseViewHolder(LayoutInflater.f
         super.bind(data)
         if (data !is GankResult) return
 
-        bind.iv.load(data.images!![0])
+//        bind.iv.load(data.images!![0].value)
+        bind.url = data.images!![0].value
         bind.title = data.desc
         bind.who = data.who
-        bind.date = DataLayer.simpleDateFormat.format(data.publishedAt)
+        bind.date = data.publishedAt
+        bind.dateFormat= DataLayer.simpleDateFormat
 
         bind.executePendingBindings()
     }
