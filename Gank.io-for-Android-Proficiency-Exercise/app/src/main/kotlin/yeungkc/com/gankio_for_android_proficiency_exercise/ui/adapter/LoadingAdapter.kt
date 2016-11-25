@@ -203,11 +203,37 @@ abstract class LoadingAdapter : ArrayAdapter() {
         }
     }
 
-    override fun replaceWith(dataSets: List<AutoBean>, onLoaded:()->Unit) {
+    override fun replaceWith(dataSets: List<AutoBean>, onLoaded: () -> Unit) {
         if (dataSets.isNotEmpty() && msgType != 0) {
             msgType = 0
             notifyItemRemoved(0)
         }
         super.replaceWith(dataSets, onLoaded)
+    }
+
+    fun onLoading(requestPage: Int, onStartRefresh: () -> Unit) {
+        if (isHaveDataSets()) {
+            if (requestPage == 0) {
+                onStartRefresh()
+                hideLoadingMore()
+            } else {
+                showLoadingMore()
+            }
+        } else {
+            showLoading()
+        }
+    }
+
+    fun onLoadError(requetPage: Int, onStopRefresh: () -> Unit, onRefreshError: () -> Unit) {
+        onStopRefresh()
+        if (isHaveDataSets()) {
+            if (requetPage == 0) {
+                onRefreshError()
+            } else {
+                showLoadMoreError()
+            }
+        } else {
+            showError()
+        }
     }
 }

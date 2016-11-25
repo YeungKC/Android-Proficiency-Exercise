@@ -49,10 +49,6 @@ class GankFragment : BasePageFragment(), GankView {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
     fun initView() {
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
         binding.recyclerView.layoutManager = LinearLayoutManager(context).apply { recycleChildrenOnDetach = true }
@@ -86,38 +82,22 @@ class GankFragment : BasePageFragment(), GankView {
     }
 
     override fun onLoading() {
-        if (gankAdapter.isHaveDataSets()) {
-            if (requestPage == 0) {
-                binding.refreshLayout.isRefreshing = true
-                gankAdapter.hideLoadingMore()
-            } else {
-                gankAdapter.showLoadingMore()
-            }
-        } else {
-            gankAdapter.showLoading()
-        }
+        gankAdapter.onLoading(requestPage,
+                onStartRefresh = { binding.refreshLayout.isRefreshing = true }
+        )
     }
 
     override fun onError(error: Throwable) {
-        binding.refreshLayout.isRefreshing = false
-
-        if (gankAdapter.isHaveDataSets()) {
-            if (requestPage == 0) {
-                onRefreshError()
-            } else {
-                gankAdapter.showLoadMoreError()
-            }
-        } else {
-            gankAdapter.showError()
-        }
-    }
-
-    private fun onRefreshError() {
-        Snackbar.make(binding.recyclerView, R.string.connection_fail, Snackbar.LENGTH_LONG)
-                .setAction(R.string.retry) {
-                    presenter.getRemoteContent(requestPage)
-                }
-                .show()
+        gankAdapter.onLoadError(
+                requestPage,
+                onStopRefresh = { binding.refreshLayout.isRefreshing = false },
+                onRefreshError = {
+                    Snackbar.make(binding.recyclerView, R.string.connection_fail, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.retry) {
+                                presenter.getRemoteContent(requestPage)
+                            }
+                            .show()
+                })
     }
 
     override fun setData(data: List<GankResult>) {
