@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	>
+
+	<data>
+
+		<variable
+			name="title"
+			type="String"/>
+
+		<variable
+			name="who"
+			type="String"/>
+
+		<variable
+			name="date"
+			type="String"/>
+
+	</data>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="188dp"
+		>
+
+		<com.facebook.drawee.view.SimpleDraweeView
+			android:id="@+id/iv"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+
+		<View
+			android:id="@+id/tv_background"
+			android:layout_width="match_parent"
+			android:layout_height="70dp"
+			android:layout_alignParentBottom="true"
+			android:background="#6b000000"
+			/>
+
+		<TextView
+			android:id="@+id/tv_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignTop="@id/tv_background"
+			android:layout_marginBottom="8dp"
+			android:layout_marginLeft="16dp"
+			android:layout_marginRight="16dp"
+			android:layout_marginTop="16dp"
+			android:maxLines="1"
+			android:text="@{title}"
+			android:textColor="?android:attr/textColorPrimaryInverse"
+			android:textSize="14sp"
+			tools:text="itCoder WeeklyBlog 第六期（Android：沉浸式适配、Retrofit 2.0 应用 、Android 单元测试-Mock及Mockito 、自定义选择复制功能、RxJava 学习笔记（部分示例代码及源码）、使用贝塞尔曲线实现仿 QQ “一键下班”；C/C++：Linux 下用 Clion 编写及调用共享库 ；Python：Python 描述符入门指北、Atom-Helper 小脚本；面向对象：面向对象六大原则和设计模式。）"/>
+
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/tv_title"
+			android:gravity="center_vertical"
+			android:paddingLeft="16dp"
+			android:paddingRight="16dp">
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:maxLines="1"
+				android:text="@{@string/via(who)}"
+				android:textAlignment="textStart"
+				android:textColor="?android:attr/textColorSecondaryInverse"
+				android:textSize="12sp"
+				tools:text="via YeungKc"/>
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:maxLines="1"
+				android:textAlignment="textEnd"
+				android:text="@{date}"
+				android:textColor="?android:attr/textColorSecondaryInverse"
+				android:textSize="12sp"
+				tools:text="2016-11-23"/>
+		</LinearLayout>
+
+
+	</RelativeLayout>
+</layout>
