@@ -2,6 +2,7 @@ package yeungkc.com.gankio_for_android_proficiency_exercise.model.bean
 
 import yeungkc.com.gankio_for_android_proficiency_exercise.ui.adapter.GankAdapter.Companion.GANK_PIC_TYPE
 import yeungkc.com.gankio_for_android_proficiency_exercise.ui.adapter.GankAdapter.Companion.GANK_TYPE
+import yeungkc.com.gankio_for_android_proficiency_exercise.ui.adapter.GankAdapter.Companion.GANK_VP_PIC_TYPE
 import java.util.*
 
 
@@ -17,7 +18,17 @@ open class BaseResult<T>(
 
 open public class GankResult() : AutoBean {
     override val itemType: Int
-        get() = if (images?.isNotEmpty() ?: false) GANK_PIC_TYPE else GANK_TYPE
+        get() {
+            if (images?.isEmpty() ?: true) {
+                return GANK_TYPE
+            } else {
+                if (images!!.size > 1) {
+                    return GANK_VP_PIC_TYPE
+                } else {
+                    return GANK_PIC_TYPE
+                }
+            }
+        }
 
     override val itemId: Long
         get() = hashCode().toLong()
