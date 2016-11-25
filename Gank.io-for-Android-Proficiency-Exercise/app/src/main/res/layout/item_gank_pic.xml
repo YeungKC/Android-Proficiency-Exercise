@@ -34,6 +34,7 @@
 		<View
 			android:id="@+id/tv_background"
 			android:layout_width="match_parent"
+			android:foreground="?attr/selectableItemBackground"
 			android:layout_height="70dp"
 			android:layout_alignParentBottom="true"
 			android:background="#6b000000"
@@ -51,7 +52,6 @@
 			android:maxLines="1"
 			android:text="@{title}"
 			android:textColor="?android:attr/textColorPrimaryInverse"
-			android:textSize="14sp"
 			tools:text="itCoder WeeklyBlog 第六期（Android：沉浸式适配、Retrofit 2.0 应用 、Android 单元测试-Mock及Mockito 、自定义选择复制功能、RxJava 学习笔记（部分示例代码及源码）、使用贝塞尔曲线实现仿 QQ “一键下班”；C/C++：Linux 下用 Clion 编写及调用共享库 ；Python：Python 描述符入门指北、Atom-Helper 小脚本；面向对象：面向对象六大原则和设计模式。）"/>
 
 

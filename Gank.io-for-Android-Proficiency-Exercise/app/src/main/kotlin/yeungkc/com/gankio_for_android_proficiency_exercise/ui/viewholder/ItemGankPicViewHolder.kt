@@ -1,5 +1,6 @@
 package yeungkc.com.gankio_for_android_proficiency_exercise.ui.viewholder
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import yeungkc.com.gankio_for_android_proficiency_exercise.R
@@ -19,9 +20,9 @@ class ItemGankPicViewHolder(parent: ViewGroup) : BaseViewHolder(LayoutInflater.f
     init {
         bind = ItemGankPicBinding.bind(itemView)
 
-//        bind.root.setOnClickListener {
-//
-//        }
+        bind.tvBackground.setOnClickListener {
+            Log.v("TAG","TEST")
+        }
     }
 
     override fun bind(data: AutoBean) {

@@ -35,4 +35,9 @@ class GankAdapter :LoadingAdapter() {
     override fun getExItemId(position: Int): Long {
         return get(position).itemId
     }
+
+    override fun onViewDetachedFromWindow(holder: BaseViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.onDetached()
+    }
 }

@@ -22,6 +22,7 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:foreground="?attr/selectableItemBackground"
 		android:orientation="vertical"
 		android:padding="16dp"
 		>
@@ -33,7 +34,6 @@
 			android:layout_height="wrap_content"
 			android:text="@{title}"
 			android:textColor="?android:attr/textColorPrimary"
-			android:textSize="14sp"
 			tools:text="itCoder WeeklyBlog 第六期（Android：沉浸式适配、Retrofit 2.0 应用 、Android 单元测试-Mock及Mockito 、自定义选择复制功能、RxJava 学习笔记（部分示例代码及源码）、使用贝塞尔曲线实现仿 QQ “一键下班”；C/C++：Linux 下用 Clion 编写及调用共享库 ；Python：Python 描述符入门指北、Atom-Helper 小脚本；面向对象：面向对象六大原则和设计模式。）"
 			/>
 
@@ -46,21 +46,21 @@
 			<TextView
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
+				android:layout_marginRight="8dp"
 				android:layout_weight="1"
 				android:maxLines="1"
 				android:text="@{@string/via(who)}"
 				android:textAlignment="textStart"
 				android:textColor="?android:attr/textColorSecondary"
 				android:textSize="12sp"
-				android:layout_marginRight="8dp"
 				tools:text="via YeungKc"/>
 
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:maxLines="1"
-				android:textAlignment="textEnd"
 				android:text="@{date}"
+				android:textAlignment="textEnd"
 				android:textColor="?android:attr/textColorSecondary"
 				android:textSize="12sp"
 				tools:text="2016-11-23"/>
