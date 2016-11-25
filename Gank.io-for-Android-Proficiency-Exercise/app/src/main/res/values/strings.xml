@@ -1,4 +1,23 @@
 <resources>
 	<string name="app_name">Gank.io</string>
 	<string name="action_search">搜索</string>
+	<string name="android">Android</string>
+	<string name="ios">iOS</string>
+	<string name="front_end">前端</string>
+
+	<string name="retry">重试</string>
+	<string name="connection_fail">连接失败</string>
+	<string name="connection_fail_and_on_click_retry">连接失败, 點擊重試。</string>
+	<string name="no_more">已經全部加載完成</string>
+
+	<string name="via">via %s</string>
+	<string name="load_more">加载更多...</string>
+	<string name="loading">加载中...</string>
+
+
+	<string-array name="titles">
+		<item>@string/android</item>
+		<item>@string/ios</item>
+		<item>@string/front_end</item>
+	</string-array>
 </resources>
