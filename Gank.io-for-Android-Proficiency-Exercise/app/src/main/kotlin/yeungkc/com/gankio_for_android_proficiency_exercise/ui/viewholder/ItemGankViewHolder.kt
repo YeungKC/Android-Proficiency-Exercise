@@ -8,7 +8,8 @@ import yeungkc.com.gankio_for_android_proficiency_exercise.model.DataLayer
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.AutoBean
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.GankResult
 
-class ItemGankViewHolder(parent: ViewGroup) :BaseViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_gank, parent, false)) {
+class ItemGankViewHolder(parent: ViewGroup) :BaseViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.item_gank, parent, false)) {
     val bind: ItemGankBinding
 
     init {
@@ -25,7 +26,8 @@ class ItemGankViewHolder(parent: ViewGroup) :BaseViewHolder(LayoutInflater.from(
 
         bind.title = data.desc
         bind.who = data.who
-        bind.date = DataLayer.simpleDateFormat.format(data.publishedAt)
+        bind.date = data.publishedAt
+        bind.dateFormat= DataLayer.simpleDateFormat
 
         bind.executePendingBindings()
     }

@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.facebook.drawee.view.SimpleDraweeView
 import yeungkc.com.gankio_for_android_proficiency_exercise.extensions.load
+import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.GString
 
 class PicAdapter() : PagerAdapter() {
-    lateinit var dataSet: List<String>
+    lateinit var dataSet: List<GString>
     val imageViews = SparseArray<SimpleDraweeView>()
 
     override fun isViewFromObject(view: View?, `object`: Any?) = view == `object`
@@ -23,7 +24,7 @@ class PicAdapter() : PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageView = getImageView(container, position)
         container.addView(imageView)
-        imageView.load(dataSet[position])
+        imageView.load(dataSet[position].value)
         return imageView
     }
 
