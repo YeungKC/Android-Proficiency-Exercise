@@ -4,11 +4,12 @@ import android.support.v4.view.PagerAdapter
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import com.facebook.drawee.view.SimpleDraweeView
+import yeungkc.com.gankio_for_android_proficiency_exercise.extensions.load
 
 class PicAdapter() : PagerAdapter() {
     lateinit var dataSet: List<String>
-    val imageViews = SparseArray<ImageView>()
+    val imageViews = SparseArray<SimpleDraweeView>()
 
     override fun isViewFromObject(view: View?, `object`: Any?) = view == `object`
     override fun getCount() = dataSet.size
@@ -22,22 +23,14 @@ class PicAdapter() : PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageView = getImageView(container, position)
         container.addView(imageView)
-
-//        Glide.with(container.context)
-//                .load(CustomImageSizeModelGankStudio(dataSet[position]))
-//                .asGif()
-//                .placeholder(ColorDrawable(Color.BLUE))
-//                .error(ColorDrawable(Color.RED))
-//                .centerCrop()
-//                .into(imageView)
-
+        imageView.load(dataSet[position])
         return imageView
     }
 
-    private fun getImageView(container: ViewGroup, position: Int) :ImageView{
+    private fun getImageView(container: ViewGroup, position: Int) : SimpleDraweeView {
         var imageView = imageViews[position]
         if (imageViews.get(position) == null) {
-            imageView = ImageView(container.context)
+            imageView = SimpleDraweeView(container.context)
             imageViews.append(position, imageView)
         }
         return imageView
