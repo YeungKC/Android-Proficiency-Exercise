@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import yeungkc.com.gankio_for_android_proficiency_exercise.App
 import yeungkc.com.gankio_for_android_proficiency_exercise.R
 import yeungkc.com.gankio_for_android_proficiency_exercise.contract.GankPresenter
 import yeungkc.com.gankio_for_android_proficiency_exercise.contract.GankView
@@ -50,6 +51,7 @@ class GankFragment : BasePageFragment(), GankView {
     }
 
     fun initView() {
+        binding.recyclerView.recycledViewPool = App.recycledViewPool
         binding.recyclerView.addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
         binding.recyclerView.layoutManager = LinearLayoutManager(context).apply { recycleChildrenOnDetach = true }
         binding.recyclerView.adapter = gankAdapter
