@@ -1,25 +1,48 @@
 package yeungkc.com.gankio_for_android_proficiency_exercise.ui.viewholder
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.ViewGroup
+import rx.Observable
+import rx.Subscription
+import rx.android.schedulers.AndroidSchedulers
 import yeungkc.com.gankio_for_android_proficiency_exercise.R
 import yeungkc.com.gankio_for_android_proficiency_exercise.databinding.ItemGankVpPicBinding
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.DataLayer
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.AutoBean
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.GankResult
 import yeungkc.com.gankio_for_android_proficiency_exercise.ui.adapter.PicAdapter
+import java.util.concurrent.TimeUnit
 
 class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_gank_vp_pic, parent, false)) {
+    companion object {
+        const val INITIAL_DELAY: Long = 3
+        const val PERIOD: Long = 3
+    }
+
     val bind: ItemGankVpPicBinding
-    val picAdapter:PicAdapter
+    val picAdapter: PicAdapter
+
+    var subscribe: Subscription? = null
 
     init {
         bind = ItemGankVpPicBinding.bind(itemView)
         picAdapter = PicAdapter()
 
-//        bind.root.setOnClickListener {
-//
-//        }
+        bind.viewPager.setOnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL ->
+                    start()
+                else ->
+                    stop()
+            }
+            return@setOnTouchListener false
+        }
+
+        bind.tvBackground.setOnClickListener {
+            Log.v("TAG", "TEST")
+        }
     }
 
     override fun bind(data: AutoBean) {
@@ -28,12 +51,36 @@ class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(LayoutInflater
 
         picAdapter.dataSet = data.images!!
         bind.viewPager.adapter = picAdapter
+
+        bind.indicator.count = picAdapter.count
         bind.indicator.setViewPager(bind.viewPager)
+
+        start()
 
         bind.title = data.desc
         bind.who = data.who
         bind.date = DataLayer.simpleDateFormat.format(data.publishedAt)
 
         bind.executePendingBindings()
+    }
+
+    override fun onDetached() {
+        super.onDetached()
+        stop()
+    }
+
+    fun start() {
+        subscribe = Observable.interval(INITIAL_DELAY, PERIOD, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    var currentItem = bind.viewPager.currentItem
+                    currentItem++
+                    bind.viewPager.currentItem =
+                            if (currentItem == bind.viewPager.adapter.count) 0 else currentItem
+                }
+    }
+
+    fun stop() {
+        subscribe?.unsubscribe()
     }
 }
