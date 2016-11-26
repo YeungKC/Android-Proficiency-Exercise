@@ -65,4 +65,9 @@ class ItemGankPicViewHolder(parent: ViewGroup) : BaseViewHolder(
         super.onDetached()
         bind.iv.controller?.animatable?.stop()
     }
+
+    override fun onRecycled() {
+        super.onRecycled()
+        bind.iv.setImageBitmap(null)
+    }
 }

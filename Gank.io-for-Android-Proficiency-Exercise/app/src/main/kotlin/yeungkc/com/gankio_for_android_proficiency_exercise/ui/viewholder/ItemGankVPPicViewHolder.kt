@@ -82,6 +82,11 @@ class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(
         stop()
     }
 
+    override fun onRecycled() {
+        super.onRecycled()
+        picAdapter.onRecycled()
+    }
+
     /**
      * 开始轮播
      */
