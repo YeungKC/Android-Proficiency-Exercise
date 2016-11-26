@@ -13,21 +13,12 @@ import yeungkc.com.gankio_for_android_proficiency_exercise.extensions.load
 import java.util.*
 
 class PicAdapter() : PagerAdapter() {
-     var dataSet: List<String> = ArrayList()
-    set(value) {
-        field = value
+    var dataSet: List<String> = ArrayList()
+        set(value) {
+            field = value
 
-        // 每次设置数据将多余的 view 清除，避免缓存越来越大
-        if (imageViews.size() > 2) {
-            for (i in 2..imageViews.size() - 1) {
-                val simpleDraweeView = imageViews[i]
-                simpleDraweeView.controller?.animatable?.stop()
-                simpleDraweeView.setImageBitmap(null)
 
-                imageViews.remove(i)
-            }
         }
-    }
     val imageViews = SparseArray<SimpleDraweeView>()
 
     override fun isViewFromObject(view: View?, `object`: Any?) = view == `object`
@@ -57,7 +48,18 @@ class PicAdapter() : PagerAdapter() {
         return imageView
     }
 
-    private fun getImageView(container: ViewGroup, position: Int) : SimpleDraweeView {
+    fun onRecycled() {
+        //  被回收时释放，并且将多余的 View 移除，避免缓存 View 过多
+        for (i in 0..imageViews.size() - 1) {
+            val simpleDraweeView = imageViews[i]
+            simpleDraweeView.controller?.animatable?.stop()
+            simpleDraweeView.setImageBitmap(null)
+
+            if (i >= 2) imageViews.remove(i)
+        }
+    }
+
+    private fun getImageView(container: ViewGroup, position: Int): SimpleDraweeView {
         var imageView = imageViews[position]
         if (imageViews.get(position) == null) {
             imageView = SimpleDraweeView(container.context)

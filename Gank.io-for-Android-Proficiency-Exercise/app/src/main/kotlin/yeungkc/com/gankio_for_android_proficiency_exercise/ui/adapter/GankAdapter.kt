@@ -45,4 +45,9 @@ class GankAdapter :LoadingAdapter() {
         super.onViewDetachedFromWindow(holder)
         holder.onDetached()
     }
+
+    override fun onViewRecycled(holder: BaseViewHolder) {
+        super.onViewRecycled(holder)
+        holder.onRecycled()
+    }
 }
