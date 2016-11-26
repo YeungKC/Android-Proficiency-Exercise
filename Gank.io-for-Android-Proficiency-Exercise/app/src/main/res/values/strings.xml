@@ -7,12 +7,13 @@
 
 	<string name="retry">重试</string>
 	<string name="connection_fail">连接失败</string>
-	<string name="connection_fail_and_on_click_retry">连接失败, 點擊重試。</string>
-	<string name="no_more">已經全部加載完成</string>
+	<string name="connection_fail_and_on_click_retry">连接失败，点击重试。</string>
+	<string name="no_more">已经全部加载完成</string>
+	<string name="on_network_unavailable">网络不可用，现为你载入缓存数据，如需网络数据请下拉刷新</string>
 
 	<string name="via">via %s</string>
-	<string name="load_more">加载更多...</string>
-	<string name="loading">加载中...</string>
+	<string name="load_more">加载更多…</string>
+	<string name="loading">加载中…</string>
 
 
 	<string-array name="titles">

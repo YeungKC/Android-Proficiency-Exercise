@@ -19,4 +19,8 @@ abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     open fun onDetached() {
     }
+
+    open fun onAttached() {
+
+    }
 }

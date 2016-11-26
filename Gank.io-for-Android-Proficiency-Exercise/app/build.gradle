@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-//apply plugin: 'org.greenrobot.greendao'
 
 def gitVersionCode() {
     def cmd = 'git rev-list HEAD --first-parent --count'
@@ -72,9 +71,6 @@ android {
     lintOptions {
         abortOnError false
     }
-//    greendao {
-//        schemaVersion 1
-//    }
 }
 
 dependencies {
@@ -82,6 +78,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+//    compile "org.jetbrains.anko:anko-common:$anko_version"
+    compile "org.jetbrains.anko:anko-sqlite:+"
 
     kapt "com.android.databinding:compiler:$android_plugin_version"
 
@@ -102,8 +100,6 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.12.0'
     compile 'com.facebook.fresco:animated-gif:0.12.0'
     compile "com.facebook.fresco:imagepipeline-okhttp3:0.12.0+"
-
-//    compile 'org.greenrobot:greendao:3.2.0'
 }
 kapt {
     generateStubs = true

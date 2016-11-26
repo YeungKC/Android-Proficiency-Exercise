@@ -36,6 +36,11 @@ class GankAdapter :LoadingAdapter() {
         return get(position).itemId
     }
 
+    override fun onViewAttachedToWindow(holder: BaseViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        holder.onAttached()
+    }
+
     override fun onViewDetachedFromWindow(holder: BaseViewHolder) {
         super.onViewDetachedFromWindow(holder)
         holder.onDetached()

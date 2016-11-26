@@ -24,22 +24,12 @@ class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(
 
     val bind: ItemGankVpPicBinding
     val picAdapter: PicAdapter
-    val runnable: Runnable
 
     var subscribe: Subscription? = null
 
     init {
         bind = ItemGankVpPicBinding.bind(itemView)
         picAdapter = PicAdapter()
-        runnable = object : Runnable {
-            override fun run() {
-                var currentItem = bind.viewPager.currentItem
-                currentItem++
-                bind.viewPager.currentItem =
-                        if (currentItem == bind.viewPager.adapter.count) 0 else currentItem
-                bind.viewPager.postDelayed(this,INITIAL_DELAY)
-            }
-        }
 
         bind.viewPager.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
@@ -65,15 +55,19 @@ class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(
 
         bind.indicator.count = picAdapter.count
         bind.indicator.setViewPager(bind.viewPager)
-
-        start()
+        bind.indicator.selection = bind.viewPager.currentItem
 
         bind.title = data.desc
         bind.who = data.who
         bind.date = data.publishedAt
-        bind.dateFormat= DataLayer.simpleDateFormat
+        bind.dateFormat = DataLayer.simpleDateFormat
 
         bind.executePendingBindings()
+    }
+
+    override fun onAttached() {
+        super.onAttached()
+        start()
     }
 
     override fun onDetached() {
@@ -82,14 +76,16 @@ class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(
     }
 
     fun start() {
-        subscribe = Observable.interval(INITIAL_DELAY, PERIOD, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    var currentItem = bind.viewPager.currentItem
-                    currentItem++
-                    bind.viewPager.currentItem =
-                            if (currentItem == bind.viewPager.adapter.count) 0 else currentItem
-                }
+        if (subscribe?.isUnsubscribed ?: true)
+            subscribe = Observable.interval(INITIAL_DELAY, PERIOD, TimeUnit.SECONDS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        var currentItem = bind.viewPager.currentItem
+                        currentItem++
+                        bind.viewPager.currentItem =
+                                if (currentItem == bind.viewPager.adapter.count) 0 else currentItem
+                    }
+
     }
 
     fun stop() {

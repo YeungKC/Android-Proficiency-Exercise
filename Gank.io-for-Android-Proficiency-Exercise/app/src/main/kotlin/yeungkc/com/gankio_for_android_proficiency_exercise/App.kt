@@ -25,17 +25,10 @@ class App : Application() {
                         .setDownsampleEnabled(true)
                         .setBitmapsConfig(Bitmap.Config.RGB_565)
                         .build())
-
-        initGlide(this)
     }
 
     companion object{
         lateinit var context: Context
         val recycledViewPool: RecyclerView.RecycledViewPool by lazy { RecyclerView.RecycledViewPool() }
-    }
-
-    private fun initGlide(app: App) {
-//        Glide.get(app)
-//                .register(GlideUrl::class.java, InputStream::class.java, OkHttpUrlLoader.Factory(DataLayer.okHttpClient))
     }
 }
