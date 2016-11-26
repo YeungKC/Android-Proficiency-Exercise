@@ -5,6 +5,9 @@ import android.support.v7.widget.Toolbar
 
 interface IToolbarManager {
 
+    /**
+     * 使用返回箭头
+     */
     fun enableHomeAsUp(up: () -> Unit) {
         getToolBar().navigationIcon = createUpDrawable()
         getToolBar().setNavigationOnClickListener { up() }

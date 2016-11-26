@@ -13,17 +13,22 @@ abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     }
 
-    open fun bind() {
-
-    }
-
+    /**
+     * 当 ViewHolder 脱离
+     */
     open fun onDetached() {
     }
 
+    /**
+     * 当 ViewHolder 绑定
+     */
     open fun onAttached() {
 
     }
 
+    /**
+     * 当 ViewHolder 被回收
+     */
     open fun onRecycled() {
     }
 }

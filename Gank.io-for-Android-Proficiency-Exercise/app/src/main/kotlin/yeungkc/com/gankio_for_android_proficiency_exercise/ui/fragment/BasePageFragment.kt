@@ -23,6 +23,9 @@ abstract class BasePageFragment : Fragment() {
 
     abstract fun initData()
 
+    /**
+     * 当 View 已经创建和确定显示出来的时候加载，只会加载一次
+     */
     fun prepareInitData() {
         if (isVisibleToUser && isViewInitiated && !isDataInitiated) {
             initData()
