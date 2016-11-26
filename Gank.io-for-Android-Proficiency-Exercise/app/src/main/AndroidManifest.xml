@@ -2,6 +2,7 @@
 <manifest package="yeungkc.com.gankio_for_android_proficiency_exercise"
           xmlns:android="http://schemas.android.com/apk/res/android">
 	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
 	<application
 		android:name=".App"
@@ -20,8 +21,6 @@
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
-		<meta-data android:name="yeungkc.com.gankio_for_android_proficiency_exercise.model.glide.module.CustomImageSizeGlideModule"
-		           android:value="GlideModule"/>
 	</application>
 
 </manifest>

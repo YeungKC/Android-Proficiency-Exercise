@@ -8,4 +8,4 @@ object Pangu {
 /**
  * 为什么返回来的数据中英文之间没有空格呢？？？这个方法就是为了处理这个。
  */
-fun String?.spacingText(): String? = this?.let { Pangu.instance.spacingText(it) }
+fun String.spacingText(): String = Pangu.instance.spacingText(this)

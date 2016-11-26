@@ -4,7 +4,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
-import yeungkc.com.gankio_for_android_proficiency_exercise.ui.adapter.ArrayAdapter
+import yeungkc.com.gankio_for_android_proficiency_exercise.ui.adapter.ArrayAutoBindAdapter
 import yeungkc.com.gankio_for_android_proficiency_exercise.ui.adapter.LoadingAdapter
 import yeungkc.com.gankio_for_android_proficiency_exercise.ui.adapter.LoadingAdapter.Companion.LOADING_MORE_TYPE
 
@@ -32,16 +32,16 @@ fun RecyclerView.setOnLoadMore(more: (Int) -> Unit) {
 }
 
 fun RecyclerView.getAdapterCanLoadMore(): Boolean {
-    var b = true
+    var b = false
     val adapter = adapter
-    if (adapter is ArrayAdapter) {
+    if (adapter is ArrayAutoBindAdapter) {
         b = adapter.isCanLoading()
     }
     return b
 }
 
 fun RecyclerView.getAdapterIsLoadMore(): Boolean {
-    var b = true
+    var b = false
 
     val adapter = adapter
     if (adapter is LoadingAdapter) {

@@ -10,7 +10,7 @@ import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.AutoBean
 import yeungkc.com.gankio_for_android_proficiency_exercise.ui.viewholder.BaseViewHolder
 import java.util.*
 
-abstract class LoadingAdapter : ArrayAdapter() {
+abstract class LoadingAdapter : ArrayAutoBindAdapter() {
     var onClickErrorItemListener: (() -> Unit)? = null
 
     companion object {
@@ -29,7 +29,7 @@ abstract class LoadingAdapter : ArrayAdapter() {
     override final fun getItemCount(): Int
             =
             if (isHaveDataSets()) {
-                size + if (loadMoreMsgType == 0) 0 else 1
+                getExItemCount() + if (loadMoreMsgType == 0) 0 else 1
             } else {
                 if (msgType == 0) 0 else 1
             }
@@ -211,12 +211,13 @@ abstract class LoadingAdapter : ArrayAdapter() {
         super.replaceWith(dataSets, onLoaded)
     }
 
-    fun onLoading(requestPage: Int, onStartRefresh: () -> Unit) {
+    fun onLoading(requestPage: Int, isRefresh: (Boolean) -> Unit) {
         if (isHaveDataSets()) {
             if (requestPage == 0) {
-                onStartRefresh()
+                isRefresh(true)
                 hideLoadingMore()
             } else {
+                isRefresh(false)
                 showLoadingMore()
             }
         } else {

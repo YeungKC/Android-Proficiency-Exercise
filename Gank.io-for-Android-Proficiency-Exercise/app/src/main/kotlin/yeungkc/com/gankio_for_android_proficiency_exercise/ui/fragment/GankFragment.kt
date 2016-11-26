@@ -20,7 +20,6 @@ import yeungkc.com.gankio_for_android_proficiency_exercise.ui.adapter.GankAdapte
 
 class GankFragment : BasePageFragment(), GankView {
     companion object {
-
         const val CATEGORICAL = "CATEGORICAL"
         fun newInstance(categorical: String): GankFragment {
             val args = Bundle()
@@ -75,7 +74,7 @@ class GankFragment : BasePageFragment(), GankView {
     }
 
     override fun initData() {
-        presenter.getRemoteContent()
+        presenter.getContext(context)
     }
 
     override fun onDestroy() {
@@ -83,12 +82,24 @@ class GankFragment : BasePageFragment(), GankView {
         presenter.unBind(isDetached)
     }
 
+    override fun onNetworkUnavailable() {
+        Snackbar.make(binding.recyclerView, R.string.on_network_unavailable, Snackbar.LENGTH_LONG)
+                .show()
+    }
+
+    /**
+     * onLoading 状态判断操作
+     */
     override fun onLoading() {
+        isNoData = false //重置状态
         gankAdapter.onLoading(requestPage,
-                onStartRefresh = { binding.refreshLayout.isRefreshing = true }
+                isRefresh = { binding.refreshLayout.isRefreshing = it }
         )
     }
 
+    /**
+     * onError 状态判断操作
+     */
     override fun onError(error: Throwable) {
         gankAdapter.onLoadError(
                 requestPage,
@@ -102,6 +113,9 @@ class GankFragment : BasePageFragment(), GankView {
                 })
     }
 
+    /**
+     * setData 以及之后的状态判断操作
+     */
     override fun setData(data: List<GankResult>) {
         val list: List<AutoBean>
 
@@ -120,6 +134,8 @@ class GankFragment : BasePageFragment(), GankView {
                 } else {
                     gankAdapter.showLoadingMore()
                 }
+            } else {
+                gankAdapter.showNoData()
             }
         }
     }

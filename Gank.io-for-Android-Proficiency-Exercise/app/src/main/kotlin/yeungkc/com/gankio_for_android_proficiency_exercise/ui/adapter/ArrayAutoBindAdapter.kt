@@ -9,7 +9,7 @@ import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.AutoBean
 import yeungkc.com.gankio_for_android_proficiency_exercise.ui.viewholder.BaseViewHolder
 import java.util.*
 
-abstract class ArrayAdapter(capacity: Int = 0) : RecyclerView.Adapter<BaseViewHolder>() {
+abstract class ArrayAutoBindAdapter(capacity: Int = 0) : RecyclerView.Adapter<BaseViewHolder>() {
     var dataSets: List<AutoBean>
 
     init {

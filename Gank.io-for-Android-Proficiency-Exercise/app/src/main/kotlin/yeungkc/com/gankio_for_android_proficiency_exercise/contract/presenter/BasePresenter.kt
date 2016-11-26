@@ -13,6 +13,9 @@ abstract class BasePresenter<T,V : BaseView<*>>() {
         this.v = v
     }
 
+    /**
+     * 清除 view，取消请求
+     */
     open fun unBind(isFinishing: Boolean) {
         v = null
         if (isFinishing) pendingSubscriptions.clear()
