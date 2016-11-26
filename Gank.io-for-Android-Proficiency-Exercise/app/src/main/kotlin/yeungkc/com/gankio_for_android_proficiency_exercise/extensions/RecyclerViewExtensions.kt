@@ -20,18 +20,18 @@ fun RecyclerView.setOnLoadMore(more: (Int) -> Unit) {
 
             if (itemCount != lastVisibleItemPosition) return
 
-            if (recyclerView.getParentIsRefreshing()) return
+            if (recyclerView.isParentIsRefreshing()) return
 
-            if (!recyclerView.getAdapterIsLoadMore()) return
+            if (!recyclerView.isAdapterIsLoadMoreType()) return
 
-            if (!recyclerView.getAdapterCanLoadMore()) return
+            if (!recyclerView.isAdapterCanLoadMore()) return
 
             more(lastVisibleItemPosition)
         }
     })
 }
 
-fun RecyclerView.getAdapterCanLoadMore(): Boolean {
+fun RecyclerView.isAdapterCanLoadMore(): Boolean {
     var b = false
     val adapter = adapter
     if (adapter is ArrayAutoBindAdapter) {
@@ -40,7 +40,7 @@ fun RecyclerView.getAdapterCanLoadMore(): Boolean {
     return b
 }
 
-fun RecyclerView.getAdapterIsLoadMore(): Boolean {
+fun RecyclerView.isAdapterIsLoadMoreType(): Boolean {
     var b = false
 
     val adapter = adapter
@@ -50,7 +50,7 @@ fun RecyclerView.getAdapterIsLoadMore(): Boolean {
     return b
 }
 
-fun RecyclerView.getParentIsRefreshing(): Boolean {
+fun RecyclerView.isParentIsRefreshing(): Boolean {
     var isRefreshing = false
     val parent = parent
 

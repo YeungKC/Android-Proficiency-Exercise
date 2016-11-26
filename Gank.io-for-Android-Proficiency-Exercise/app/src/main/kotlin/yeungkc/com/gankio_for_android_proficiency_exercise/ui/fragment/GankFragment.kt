@@ -82,6 +82,9 @@ class GankFragment : BasePageFragment(), GankView {
         presenter.unBind(isDetached)
     }
 
+    /**
+     * 当没有网络的时候调用
+     */
     override fun onNetworkUnavailable() {
         Snackbar.make(binding.recyclerView, R.string.on_network_unavailable, Snackbar.LENGTH_LONG)
                 .show()

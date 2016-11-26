@@ -15,8 +15,6 @@ class App : Application() {
 
         context = this
 
-        DataLayer.init(this)
-
         Stetho.initializeWithDefaults(this)
 
         Fresco.initialize(this,
@@ -29,6 +27,7 @@ class App : Application() {
 
     companion object{
         lateinit var context: Context
+        // 所有 RecyclerView 使用统一缓存
         val recycledViewPool: RecyclerView.RecycledViewPool by lazy { RecyclerView.RecycledViewPool() }
     }
 }

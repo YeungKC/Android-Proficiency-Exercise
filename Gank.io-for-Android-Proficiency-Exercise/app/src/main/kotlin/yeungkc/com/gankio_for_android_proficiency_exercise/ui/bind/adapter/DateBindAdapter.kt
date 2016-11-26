@@ -9,7 +9,7 @@ import java.text.DateFormat
 import java.util.*
 
 @BindingAdapter("app:date", "app:dateFormat")
-fun setdateText(textView: TextView, date: Date, dateFormat: DateFormat) {
+fun setDateText(textView: TextView, date: Date, dateFormat: DateFormat) {
     textView.text = dateFormat.format(date)
 }
 
