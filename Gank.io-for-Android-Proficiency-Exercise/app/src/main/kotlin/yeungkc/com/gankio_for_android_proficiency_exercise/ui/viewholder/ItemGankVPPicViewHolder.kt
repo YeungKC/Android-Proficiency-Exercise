@@ -1,9 +1,9 @@
 package yeungkc.com.gankio_for_android_proficiency_exercise.ui.viewholder
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
+import org.jetbrains.anko.startActivity
 import rx.Observable
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
@@ -12,6 +12,7 @@ import yeungkc.com.gankio_for_android_proficiency_exercise.databinding.ItemGankV
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.DataLayer
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.AutoBean
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.GankResult
+import yeungkc.com.gankio_for_android_proficiency_exercise.ui.activity.WebViewActivity
 import yeungkc.com.gankio_for_android_proficiency_exercise.ui.adapter.PicAdapter
 import java.util.concurrent.TimeUnit
 
@@ -24,8 +25,8 @@ class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(
 
     val bind: ItemGankVpPicBinding
     val picAdapter: PicAdapter
-
     var subscribe: Subscription? = null
+    var data:GankResult? = null
 
     init {
         bind = ItemGankVpPicBinding.bind(itemView)
@@ -42,13 +43,19 @@ class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(
         }
 
         bind.tvBackground.setOnClickListener {
-            Log.v("TAG", "TEST")
+            data?.run {
+                context.startActivity<WebViewActivity>(
+                        WebViewActivity.TITLE to desc,
+                        WebViewActivity.URL to url
+                )
+            }
         }
     }
 
     override fun bind(data: AutoBean) {
         super.bind(data)
         if (data !is GankResult) return
+        this.data = data
 
         picAdapter.dataSet = data.images!!
         bind.viewPager.adapter = picAdapter
@@ -75,6 +82,9 @@ class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(
         stop()
     }
 
+    /**
+     * 开始轮播
+     */
     fun start() {
         if (subscribe?.isUnsubscribed ?: true)
             subscribe = Observable.interval(INITIAL_DELAY, PERIOD, TimeUnit.SECONDS)
@@ -88,6 +98,9 @@ class ItemGankVpPicViewHolder(parent: ViewGroup) : BaseViewHolder(
 
     }
 
+    /**
+     * 停止轮播
+     */
     fun stop() {
         subscribe?.unsubscribe()
     }

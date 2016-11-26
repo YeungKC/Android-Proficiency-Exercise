@@ -1,4 +1,4 @@
-package yeungkc.com.gankio_for_android_proficiency_exercise.ui.bindingadapter
+package yeungkc.com.gankio_for_android_proficiency_exercise.ui.bind.adapter
 
 import android.databinding.BindingAdapter
 import android.net.Uri
