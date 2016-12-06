@@ -1,7 +1,6 @@
 package yeungkc.com.gankio_for_android_proficiency_exercise.model.repo
 
 import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.GankResult
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.db.GankDb
@@ -18,5 +17,4 @@ class GankDataSource {
                 it.onCompleted()
             }
                     .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
 }
