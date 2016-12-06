@@ -6,8 +6,10 @@ import com.google.gson.reflect.TypeToken
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.GankResult
 import java.util.*
 
-object GankDataMapper {
-    fun convertToDomain(result: GankResult,gson: Gson) =
+object GankDataMapper :IDataMapper<GankResult> {
+    val gson = Gson()
+
+    override fun convertToDomain(result: GankResult): ContentValues =
             ContentValues().apply {
                 put(GankTable.ID, result._id)
                 put(GankTable.DESC, result.desc)
@@ -22,7 +24,7 @@ object GankDataMapper {
                 }
             }
 
-    fun convertFromDomain(columns: Map<String, Any?>,gson: Gson): GankResult =
+    override fun convertFromDomain(columns: Map<String, Any?>): GankResult =
             GankResult().apply {
                 _id = columns[GankTable.ID] as String
                 desc = columns[GankTable.DESC] as String

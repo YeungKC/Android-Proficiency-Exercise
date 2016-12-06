@@ -6,6 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import rx.Observable
+import rx.schedulers.Schedulers
 import yeungkc.com.gankio_for_android_proficiency_exercise.BuildConfig
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.DataLayer
 import yeungkc.com.gankio_for_android_proficiency_exercise.model.bean.BaseResult
@@ -17,7 +18,10 @@ class GankService {
             Retrofit.Builder()
                     .baseUrl(BuildConfig.API_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(DataLayer.gson))
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .addCallAdapterFactory(
+                            RxJavaCallAdapterFactory
+                                    .createWithScheduler(Schedulers.io())
+                    )
                     .client(DataLayer.okHttpClient)
                     .build()
                     .create(APIs::class.java)

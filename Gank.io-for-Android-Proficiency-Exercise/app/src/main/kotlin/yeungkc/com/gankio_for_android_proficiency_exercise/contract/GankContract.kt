@@ -1,6 +1,7 @@
 package yeungkc.com.gankio_for_android_proficiency_exercise.contract
 
 import android.content.Context
+import rx.android.schedulers.AndroidSchedulers
 import yeungkc.com.gankio_for_android_proficiency_exercise.contract.presenter.BasePresenter
 import yeungkc.com.gankio_for_android_proficiency_exercise.extensions.isNetworkAvailable
 import yeungkc.com.gankio_for_android_proficiency_exercise.extensions.pending
@@ -34,6 +35,7 @@ class GankPresenter(val categorical: String) : BasePresenter<List<GankResult>, G
         }
 
         gankRepo.requestContent(type, page + 1, limit)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(remoteSubscriber)
                 .pending(pendingSubscriptions)
     }
@@ -48,6 +50,7 @@ class GankPresenter(val categorical: String) : BasePresenter<List<GankResult>, G
 
     private fun getDataContent() {
         gankRepo.getDataContent(categorical)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     v?.onNetworkUnavailable()
                     v?.isNoData = true
