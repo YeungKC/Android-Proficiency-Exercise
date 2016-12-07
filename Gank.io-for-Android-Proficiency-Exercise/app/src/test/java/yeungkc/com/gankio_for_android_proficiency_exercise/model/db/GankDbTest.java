@@ -34,4 +34,27 @@ public class GankDbTest {
         Assert.assertNotNull(dataSet);
         Assert.assertEquals(size, dataSet.size());
     }
+
+    @org.junit.Test
+    public void updateAndGetGank() throws Exception {
+        String id;
+
+        List<GankResult> dataSet = MockModelFabric.newListOfGankResult(size, TYPE);
+        mGankDb.saveGank(dataSet);
+
+        GankResult gankResult = dataSet.get(0);
+        id = gankResult._id;
+        gankResult.desc = "test";
+        dataSet.set(0,gankResult);
+
+        mGankDb.saveGank(dataSet);
+
+        dataSet = mGankDb.getDataSet(TYPE);
+        Assert.assertNotNull(gankResult);
+        for (GankResult result : dataSet) {
+            if (!result._id.equals(id)) continue;
+
+            Assert.assertEquals("test", result.desc);
+        }
+    }
 }
