@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import org.jetbrains.anko.db.*
 import yeungkc.com.gankio_for_android_proficiency_exercise.App
 
-class GankDbHelper private constructor(context: Context = App.context) : ManagedSQLiteOpenHelper(
+class GankDbHelper constructor(context: Context = App.context) : ManagedSQLiteOpenHelper(
         context,DB_NAME,null, DB_VERSION) {
     companion object{
         val DB_NAME = "gank.db"
