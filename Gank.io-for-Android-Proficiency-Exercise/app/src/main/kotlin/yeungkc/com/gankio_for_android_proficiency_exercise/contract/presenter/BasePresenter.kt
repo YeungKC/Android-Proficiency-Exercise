@@ -4,7 +4,7 @@ import rx.Subscriber
 import rx.subscriptions.CompositeSubscription
 import yeungkc.com.gankio_for_android_proficiency_exercise.view.BaseView
 
-abstract class BasePresenter<T,V : BaseView<*>>() {
+abstract class BasePresenter<T, V : BaseView<*>>() {
     var v: V? = null
 
     val pendingSubscriptions = CompositeSubscription()
@@ -21,13 +21,13 @@ abstract class BasePresenter<T,V : BaseView<*>>() {
         if (isFinishing) pendingSubscriptions.clear()
     }
 
-    open var remoteSubscriber: RemoteSubscriber<T>? = null
+    open var remoteSubscriber: RemoteSubscriber<T, BaseView<T>>? = null
 
     open fun isRemoteLoading(): Boolean = !(remoteSubscriber?.isUnsubscribed ?: true)
 
     open fun cancelRemoteLoading() = remoteSubscriber?.unsubscribe()
 
-    abstract class RemoteSubscriber<T>(val view: BaseView<*>?) : Subscriber<T>() {
+    abstract class RemoteSubscriber<T, out V : BaseView<T>>(val view: V?) : Subscriber<T>() {
         override fun onStart() {
             view?.onLoading()
         }
