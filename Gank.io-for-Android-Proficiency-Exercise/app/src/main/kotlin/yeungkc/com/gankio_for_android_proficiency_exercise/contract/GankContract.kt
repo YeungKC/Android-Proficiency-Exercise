@@ -20,17 +20,17 @@ class GankPresenter(val categorical: String) : BasePresenter<List<GankResult>, G
     val gankRepo by lazy { GankRepo() }
 
     fun getRemoteContent(page: Int = 0, type: String = categorical, limit: Int = DEFAULT_COUNT) {
-        remoteSubscriber = object : BasePresenter.RemoteSubscriber<List<GankResult>>(v) {
+        remoteSubscriber = object : BasePresenter.RemoteSubscriber<List<GankResult>, GankView>(v) {
             override fun onStart() {
-                v?.requestPage = page
+                view?.requestPage = page
                 super.onStart()
             }
 
             override fun onNext(t: List<GankResult>) {
-                v?.currentPage = page
-                v?.isNoData = t.size != limit
+                view?.currentPage = page
+                view?.isNoData = t.size != limit
 
-                v?.setData(t)
+                view?.setData(t)
             }
         }
 
